@@ -1,0 +1,10 @@
+
+public class Test {
+    
+    //Just a blank constructor
+    public Test() {}
+    
+    public void printHelloWorld() {
+        System.out.println("Hello, World!");
+    }
+}
