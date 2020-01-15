@@ -107,6 +107,7 @@ public final class Item {
     /**
      * A method that checks if an item is equal to another
      * 
+     * @param item, an item object to compare to
      * @return the truth value pertaining to item equality
      * */
     public boolean equals(Item item) {
