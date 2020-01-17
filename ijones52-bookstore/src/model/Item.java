@@ -11,6 +11,10 @@ import java.util.Locale;
  * @version 1/15/20
  * */
 public final class Item {
+    /**
+     * private fields for all of the parmeters that make up either an item, or an item with bulk discounts
+     * 
+     * */
     private String name;
     private BigDecimal price;
     private boolean isBulk = false;

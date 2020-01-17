@@ -9,6 +9,10 @@ package model;
  * */
 
 public final class ItemOrder {
+    /**
+     * 
+     * private fields to store the item of the ordrr and its quantity
+     * */
     private Item item;
     private int quantity;
     

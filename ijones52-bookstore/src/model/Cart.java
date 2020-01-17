@@ -13,6 +13,9 @@ import java.util.ArrayList;
  * */
 
 public class Cart {
+    /**
+     * private fields to store order and memberhip values
+     * */
     private ArrayList<ItemOrder> orders = new ArrayList<ItemOrder>();
     private boolean isMember;
     /**
