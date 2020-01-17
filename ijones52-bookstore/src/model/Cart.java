@@ -49,6 +49,7 @@ public class Cart {
      * */
     public void setMembership(final boolean theMembership) {
         isMember = theMembership;
+        calculateTotal();
     }
 
     /**
@@ -61,8 +62,8 @@ public class Cart {
     public BigDecimal calculateTotal() {
         BigDecimal total = BigDecimal.valueOf(0);
         for(int i = 0; i < orders.size(); i++) {
-         if(orders.get(i).getItem().isBulk()) {
-             if(orders.get(i).getQuantity() > orders.get(i).getItem().getBulkQuantity()){
+         if(orders.get(i).getItem().isBulk() && isMember) {
+             if(orders.get(i).getQuantity() >= orders.get(i).getItem().getBulkQuantity()){
                  int bulkQuantity = orders.get(i).getQuantity()/orders.get(i).getItem().getBulkQuantity();
                  int normalQuantity = orders.get(i).getQuantity() % orders.get(i).getItem().getBulkQuantity();
                  

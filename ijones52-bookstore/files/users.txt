@@ -26,3 +26,7 @@ buh;Bothell;duh
 buh;Bothell;duh
 buh;Seattle;duh
 buh;Bothell;duh
+buh;Tacoma;duh
+buh;Tacoma;duh
+buh;Tacoma;duh
+buh;Tacoma;duh
