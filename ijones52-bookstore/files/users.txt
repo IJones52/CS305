@@ -23,3 +23,6 @@ buh;Bothell;duh
 buh;Bothell;duh
 buh;Bothell;duh
 buh;Bothell;duh
+buh;Bothell;duh
+buh;Seattle;duh
+buh;Bothell;duh

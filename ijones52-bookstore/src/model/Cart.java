@@ -31,7 +31,7 @@ public class Cart {
     public void add(final ItemOrder theOrder) {
         boolean isHandled = false;
         for(int i =0; i < orders.size(); i++) {
-            if(orders.get(i).equals(theOrder)) {
+            if(orders.get(i).getItem().equals(theOrder.getItem())) {
                 orders.set(i, theOrder);
                 isHandled = true;
             }
