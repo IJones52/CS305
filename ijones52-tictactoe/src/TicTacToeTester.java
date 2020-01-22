@@ -7,10 +7,55 @@ import java.util.Scanner;
  *  @version1/22/20
  * */
 public class TicTacToeTester {
+	private String player1 = "X";
+	private String player2 = "O";
 	
-	public  int play(Scanner in) {
+	public TicTacToeTester() {}
+	
+	public int play(Scanner in) {
 		Board b = new Board();
-		System.out.println(b.toString());
+		System.out.println("Welcome to Tic Tac Toe!");
+		while(!b.checkWinner(player1) && !b.checkWinner(player2)) {
+			while(true) {
+				System.out.println(player1 + "'s turn!");
+				System.out.println("Enter the x and the y coordinates of your next move, e.g. 0 0 or 1 2, or enter 'quit to exit");
+				int xCoord = in.nextInt();
+				int yCoord = in.nextInt();
+				b.updateBoard(xCoord,yCoord,player1);
+				if(b.isValidMove(xCoord, yCoord)) {
+					continue;
+				}
+				else {
+					System.out.println(b.toString());
+					b.checkWinner(player1);
+				}
+				break;
+			}
+			if(b.checkWinner(player1)) {break;}
+			while(true) {
+				System.out.println(player2 + "'s turn!");
+				System.out.println("Enter the x and the y coordinates of your next move, e.g. 0 0 or 1 2, or enter 'quit to exit");
+				int xCoord = in.nextInt();
+				int yCoord = in.nextInt();
+				b.updateBoard(xCoord,yCoord,player2);
+				if(b.isValidMove(xCoord, yCoord)) {
+					continue;
+				}
+				else {
+					System.out.println(b.toString());
+					b.checkWinner(player2);
+					break;
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		return 0;
 		
 	}

@@ -86,12 +86,22 @@ public class Board {
 		//traverse all the columns with nested loop
 		for(int i = 0; i < board.length; i ++) {
 			for(int j=0; j< board[i].length; j++) {
-				
+				if(board[i][j].equals(player) && board[i+1][j].equals(player) && board[i+2][j].equals(player)) {
+					return true;
+				}
 			}
+			break;
 		}
 		//traverse both the diagonals with nested loop
-		//if left diagonal or right diagonal work, return true
+		if(board[0][0].equals(player) && board[1][1].equals(player) && board[2][2].equals(player)){
+			return true;
+		}
+		else if(board[0][2].equals(player) && board[1][1].equals(player) && board[2][0].equals(player)) {
+			return true;
+		}
+		else {
 		return false;
+		}
 	}
 	/**
 	 * A method that updates the array of characters updataing the board
