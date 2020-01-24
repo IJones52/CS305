@@ -74,7 +74,7 @@ public class Board {
 		//traverse all the rows with nested loop
 		for(int i = 0; i < board.length; i ++) {
 			for(int j=0; j< board[i].length; j++) {
-				if(board[i][j].equals(player)&& board[i][j+1].equals(player) && board[i][j].equals(player)) {
+				if(board[i][j].equals(player)&& board[i][j+1].equals(player) && board[i][j+2].equals(player)) {
 					return true;
 				}
 				else {
@@ -111,11 +111,26 @@ public class Board {
 	 * @param the player that placing the piece
 	 * */
 	public void updateBoard(int x, int y, String player) {
-		if(isValidMove(x,y)) {
-			board[x][y] = player;
+				board[x][y] = player;
+				row1 = " "+ board[0][0] +" | " + board[0][1] +" | " + board[0][2] + " ";
+				row2 = " "+ board[1][0] +" | " + board[1][1] +" | " + board[1][2] + " ";
+				row3 = " "+ board[2][0] +" | " + board[2][1] +" | " + board[2][2] + " ";
+
+	}
+	/**
+	 * A method to check for valid user input
+	 * 
+	 * @param the x value of the position
+	 * @param the y value of the position
+	 * 
+	 * @return true if valid, false if not
+	 * */
+	public boolean isValidInput(int x, int y) {
+		if(x >= 0 && x < 3 && y >= 0 && y < 3) {
+			return true;
 		}
 		else {
-			System.out.println("Invalid move, please make another move");
+			return false;
 		}
 	}
 	/**
@@ -123,6 +138,8 @@ public class Board {
 	 * 
 	 * @param the x value of the position
 	 * @param the y value of the position
+	 * 
+	 * @return true if valid, false if not
 	 * */
 	public boolean isValidMove(int x, int y) {
 		if(!board[x][y].equals(" ")) {

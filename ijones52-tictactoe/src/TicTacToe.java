@@ -13,7 +13,7 @@ public class TicTacToe {
 	public static void main(String[] args) {
 			Scanner in = new Scanner(System.in);
 			TicTacToeTester test = new TicTacToeTester();
-			test.play(in);
+			System.out.println("Process finished with exit code " + test.play(in));
 	
 	}
 }
