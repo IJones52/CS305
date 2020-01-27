@@ -31,11 +31,22 @@ public class TicTacToeTester {
 			while(true) {
 				System.out.println(player1 + "'s turn!");
 				System.out.println("Enter the x and the y coordinates of your next move, e.g. 0 0 or 1 2, or enter 'quit to exit");
-				if(in.next().equals("quit")) {
-					return 1;
+				int xCoord = 0;
+				int yCoord = 0;
+				if(in.hasNextInt()) {
+					xCoord = in.nextInt();
+					yCoord = in.nextInt();
 				}
-				int xCoord = in.nextInt();
-				int yCoord = in.nextInt();
+				else if(in.hasNext()) {
+					if(in.next().equals("quit")) {
+						return 1;
+					}
+					else {
+						System.out.println("Invalid input, please try again");
+						continue;
+					}
+				}
+
 				if(!b.isValidInput(xCoord, yCoord)) {
 					System.out.println("Invalid input, please try again");
 					continue;
@@ -57,11 +68,21 @@ public class TicTacToeTester {
 			while(true) {
 				System.out.println(player2 + "'s turn!");
 				System.out.println("Enter the x and the y coordinates of your next move, e.g. 0 0 or 1 2, or enter 'quit to exit");
-				if(in.next().equals("quit")) {
-					return 1;
+				int xCoord = 0;
+				int yCoord = 0;
+				if(in.hasNextInt()) {
+					xCoord = in.nextInt();
+					yCoord = in.nextInt();
 				}
-				int xCoord = in.nextInt();
-				int yCoord = in.nextInt();
+				else if(in.hasNext()) {
+					if(in.next().equals("quit")) {
+						return 1;
+					}
+					else {
+						System.out.println("Invalid input, please try again");
+						continue;
+					}
+				}
 				if(!b.isValidInput(xCoord, yCoord)) {
 					System.out.println("Invalid input, please try again");
 					continue;
@@ -105,8 +126,22 @@ public class TicTacToeTester {
 			while(true) {
 				System.out.println(player1 + "'s turn!");
 				System.out.println("Enter the x and the y coordinates of your next move, e.g. 0 0 or 1 2, or enter 'quit to exit");
-				int xCoord = in.nextInt();
-				int yCoord = in.nextInt();
+				int xCoord = 0;
+				int yCoord = 0;
+				if(in.hasNextInt()) {
+					xCoord = in.nextInt();
+					yCoord = in.nextInt();
+				}
+				else if(in.hasNext()) {
+					if(in.next().equals("quit")) {
+						return;
+					}
+					else {
+						System.out.println("Invalid input, please try again");
+						continue;
+					}
+				}
+
 				if(!b.isValidInput(xCoord, yCoord)) {
 					System.out.println("Invalid input, please try again");
 					continue;
@@ -128,8 +163,21 @@ public class TicTacToeTester {
 			while(true) {
 				System.out.println(player2 + "'s turn!");
 				System.out.println("Enter the x and the y coordinates of your next move, e.g. 0 0 or 1 2, or enter 'quit to exit");
-				int xCoord = in.nextInt();
-				int yCoord = in.nextInt();
+				int xCoord = 0;
+				int yCoord = 0;
+				if(in.hasNextInt()) {
+					xCoord = in.nextInt();
+					yCoord = in.nextInt();
+				}
+				else if(in.hasNext()) {
+					if(in.next().equals("quit")) {
+						return;
+					}
+					else {
+						System.out.println("Invalid input, please try again");
+						continue;
+					}
+				}
 				if(!b.isValidInput(xCoord, yCoord)) {
 					System.out.println("Invalid input, please try again");
 					continue;
@@ -155,6 +203,5 @@ public class TicTacToeTester {
 		else if(b.isTie()) {
 			System.out.println("I declare this match a draw! \nWell played, Player 1 and Player 2!");
 		}
-
 	}
 }

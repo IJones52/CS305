@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -14,6 +16,15 @@ public class TicTacToe {
 			Scanner in = new Scanner(System.in);
 			TicTacToeTester test = new TicTacToeTester();
 			System.out.println("Process finished with exit code " + test.play(in));
+			System.out.println("\n\nBeginning auto test");
+			Scanner fileTest;
+			try {
+				fileTest = new Scanner(new File("C:/Users/Ismael Jones/Documents/CS305/ijones52-tictactoe/src/inputs.txt"));
+				test.play_auto(fileTest);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			
 	
 	}
 }
