@@ -55,7 +55,7 @@ public final class Item {
      * @return the name of the item
      * */
     public String getName() {
-        return name;
+        return name;    
     }
     /**
      * A method that returns a price of an item.
