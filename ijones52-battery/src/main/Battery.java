@@ -52,11 +52,29 @@ public class Battery implements Cloneable {
 	}
 	
 	/**
+	 * A method that allows a user to set the expiration date of the battery
+	 * 
+	 * @param The desired expiration date.
+	 * 
+	 * */
+	public void setExpiration(Date date) {
+		expiration = date;
+	}
+	
+	/**
+	 *A method that allows a user to set the manufacturer of the battery
+	 * */
+	public void setCompany(String company) {
+		manufacturer = company;
+	}
+	
+	/**
 	 * A method that overrides the object's toString() function and gives a string containing the battery's info.
 	 * 
 	 * @return a string of the form Battery (number)  Manufacutrer: (comapny) Expires: (Date)
 	 * 
 	 * */
+
 	@Override
 	public String toString() {
 		return "Battery "+batteryNumber + " Manuafacturer: " + manufacturer + "Expires: " + expiration; 
@@ -72,7 +90,7 @@ public class Battery implements Cloneable {
 	public Battery clone() {
 		try {
 			Battery clone = (Battery) super.clone();
-			clone.expiration = (Date) super.clone();
+			clone.expiration = (Date) expiration.clone();
 			return clone;
 		}
 		catch (CloneNotSupportedException e) {return null;}
