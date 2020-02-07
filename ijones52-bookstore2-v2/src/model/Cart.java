@@ -2,6 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *The Cart class holds information about all orders, calculates totals, and tracks membership
@@ -133,9 +134,12 @@ public class Cart {
     }
     
     /**
+     * A method that compares the Cart to another object
      * 
-     * 
+     * @param an object to compare to
+     * @return true if the same ItemOrders and membership status, false otherwise
      * */
+    @Override 
     public boolean equals(Object other) {
        if(other instanceof Cart) {
            if(((Cart)other).getOrders().size() == orders.size() && ((Cart)other).getMembershipStatus() == isMember) {
@@ -153,5 +157,9 @@ public class Cart {
        else {
            return false;
        }
+    }
+    
+    public int hashCode(){
+        return Objects.hash(isMember,orders);
     }
 }

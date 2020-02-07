@@ -156,7 +156,7 @@ public final class BookstoreFrame extends JFrame {
         
         final ButtonGroup g = new ButtonGroup();
         for (final Object campus : myCampusInventories.keySet()) {
-            final JRadioButton rb = new JRadioButton(campus.toString() + " Bookstore");
+            final JRadioButton rb = new JRadioButton(campus.toString());
             rb.setForeground(R.Colors.HEADER_FOOTER_TEXT);
             rb.setBackground(R.Colors.HEADER_FOOTER_BG);
             rb.setSelected(campus.equals(myCurrentCampus));
@@ -164,8 +164,7 @@ public final class BookstoreFrame extends JFrame {
             p.add(rb);
             
             rb.addActionListener(ae -> {
-                    myCurrentCampus = rb.getText();
-                    
+                    myCurrentCampus = rb.getText();                    
                     //remove the old panel and add the new one
                     remove(myItemsPanel);
                     myItemsPanel = makeItemsPanel(myCampusInventories.get(myCurrentCampus));
@@ -181,7 +180,8 @@ public final class BookstoreFrame extends JFrame {
                     revalidate();
                 } 
             );
-        } 
+            
+        }
         return p;
     }
 
