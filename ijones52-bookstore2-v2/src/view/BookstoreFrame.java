@@ -12,6 +12,8 @@ import java.awt.Toolkit;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -227,6 +229,19 @@ public final class BookstoreFrame extends JFrame {
                     createEmptyBorder(R.Dimensions.V_PADDING, R.Dimensions.H_PADDING,
                                       R.Dimensions.V_PADDING, R.Dimensions.H_PADDING));
         p.setBackground(R.Colors.CONTENT_BG);
+        //We can sort the items here
+        
+        if(myCurrentCampus.equals("Bothell Bookstore")) {
+            Collections.sort(theItems);
+            Collections.reverse(theItems);
+
+        }
+        else {
+            Collections.sort(theItems, (Item first, Item second) -> first.compareTo(second));
+        }
+       
+        
+        
         for (final Item item : theItems) {
             addItem(item, p);
         }
@@ -311,7 +326,9 @@ public final class BookstoreFrame extends JFrame {
             number = 0;
             theQuantity.setText("");
         }
+        
         myItems.add(new ItemOrder(theItem, number));
+      
         updateTotal();
     }
 

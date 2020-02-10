@@ -2,6 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Objects;
  *@version 1/15/20  
  * */
 
-public class Cart {
+public class Cart implements Comparable, Comparator{
     /**
      * private fields to store order and membership values
      * */
@@ -159,7 +160,53 @@ public class Cart {
        }
     }
     
+    /**
+     * A method that generates a hash code for a cart object
+     * 
+     * @return the hash code
+     * 
+     * */
     public int hashCode(){
         return Objects.hash(isMember,orders);
+    }
+    
+    
+    /**
+     * A method that compares two objects
+     * 
+     * @param the two object to compare
+     * @return the result of comparint the p
+     * */
+    @Override
+    public int compare(Object o1, Object o2) {
+        if((o1 != null && o1 instanceof Cart) && (o2 != null && o2 instanceof Cart)){
+            return ((Cart)o1).compareTo((Cart)o2);
+        }
+        return 0;
+    }
+    
+    /**
+     * A method that compares an object to a cart
+     * 
+     * @param an object to be compared
+     * @return an int between -1 and 1 that refers to the relationship of the object and the int
+     * 
+     * */
+
+    @Override
+    public int compareTo(Object other) {
+        if(other != null && other instanceof Cart){
+            if(((Cart)other).hashCode() == this.hashCode()) {
+                return 0;
+            }
+            else if(((Cart)other).hashCode() > this.hashCode()) {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+            
+        }
+        return 0;
     }
 }

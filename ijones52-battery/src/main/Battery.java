@@ -77,7 +77,7 @@ public class Battery implements Cloneable {
 
 	@Override
 	public String toString() {
-		return "Battery "+batteryNumber + " Manuafacturer: " + manufacturer + "Expires: " + expiration; 
+		return "Battery "+batteryNumber + " Manuafacturer: " + manufacturer + " Expires: " + expiration; 
 	}
 	
 	/**
@@ -90,7 +90,7 @@ public class Battery implements Cloneable {
 	public Battery clone() {
 		try {
 			Battery clone = (Battery) super.clone();
-			clone.expiration = (Date) expiration.clone();
+			clone.setExpiration((Date) expiration.clone()); 
 			return clone;
 		}
 		catch (CloneNotSupportedException e) {return null;}

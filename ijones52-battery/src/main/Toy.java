@@ -45,6 +45,14 @@ public class Toy implements Cloneable {
 		batteries = bats;
 		
 	}
+	/**
+	 * A method that sets the name of the toy
+	 * 
+	 * @param the new name of the toy
+	 * */
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	/**
 	 * A method that makes a string representation of a toy, including its battery status.
@@ -69,7 +77,12 @@ public class Toy implements Cloneable {
 	public Toy clone() {
 		try {
 			Toy clone = (Toy) super.clone();			
-			clone.batteries = batteries.clone();
+			Battery[] batClones = new Battery[batteries.length];
+			for(int i =0; i < batClones.length; i++) {
+				batClones[i] = batteries[i].clone();
+			}
+			
+			clone.setBatteries(batClones);
 			return clone;
 			
 		}

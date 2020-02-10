@@ -6,11 +6,11 @@ import java.util.Objects;
  *  The item order class contains methods to handle ordering multiple objects
  *  
  *   @author Ismael Jones
- *   @version 1/15/20
+ *   @version 2/5/20
  * 
  * */
 
-public final class ItemOrder {
+public final class ItemOrder implements Comparable {
     /**
      * 
      * private fields to store the item of the ordrr and its quantity
@@ -90,6 +90,30 @@ public final class ItemOrder {
     public int hashCode() {
         return Objects.hash(item,quantity);
         
+    }
+    
+    /**
+     * A method that compares an object to an ItemOrder based on hashCodes
+     * 
+     * @param an object to compare to
+     * @return an int between -1 and 1 that refers to what the object is relative to the itemOrder
+     * */
+    
+    @Override
+    public int compareTo(Object other) {
+        if(other != null && other instanceof ItemOrder) {
+            if(((ItemOrder)other).hashCode() == this.hashCode()) {
+                return 0;
+            }
+            else if(((ItemOrder)other).hashCode() > this.hashCode()) {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+            
+        }
+        return 0;
     }
 
 }

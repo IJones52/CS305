@@ -9,9 +9,9 @@ import java.util.Objects;
  * Item class creates a new object that stores data such as price name and bulk information.
  * 
  * @author Ismael Jones
- * @version 1/15/20
+ * @version 2/5/20
  * */
-public final class Item {
+public final class Item implements Comparable {
     /**
      * private fields for all of the parmeters that make up either an item, or an item with bulk discounts
      * 
@@ -115,8 +115,9 @@ public final class Item {
      * @param item, an item object to compare to
      * @return the truth value pertaining to item equality
      * */
+    @Override
     public boolean equals(Object item) {
-        if(item instanceof Item &&name.equals(((Item) item).getName()) && price == ((Item) item).getPrice()&& bulkQuantity == ((Item) item).getBulkQuantity() && bulkPrice == ((Item)item).getBulkPrice()){
+        if(item != null && item instanceof Item && name.equals(((Item) item).getName()) && price.equals(((Item) item).getPrice())&& bulkQuantity == ((Item) item).getBulkQuantity() && bulkPrice == ((Item)item).getBulkPrice()){
             return true;
         }
         else {return false;}
@@ -131,6 +132,28 @@ public final class Item {
     public int hashCode() {
 
         return Objects.hash(name,price,bulkQuantity, bulkPrice);
+    }
+    
+    /**
+     * A method that compares an object to an the Item. Checks if the object is an item first.
+     * 
+     * @param an object to compare to
+     * @return a number -1, 0, or 1 that refers to what the item is relative to the other object.
+     * */
+    public int compareTo(Object other) {
+        
+        if(other != null && other instanceof Item) {
+            if(((Item) other).getName().replace("\'", "").toLowerCase().charAt(0) == name.toLowerCase().charAt(0)) {
+                return 0;
+            }
+            else if(((Item) other).getName().replace("\'", "").toLowerCase().charAt(0) > name.toLowerCase().charAt(0)) {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+        }
+        return 0;    
     }
 
 }

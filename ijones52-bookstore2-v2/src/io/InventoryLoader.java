@@ -50,6 +50,7 @@ public final class InventoryLoader {
                 } else {
                     items.add(new Item(itemName, itemPrice));
                 }
+                
             }
         } catch (final IOException e) {
             e.printStackTrace();
