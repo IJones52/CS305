@@ -26,12 +26,9 @@ public final class ItemOrder implements Comparable {
      * */
     public ItemOrder(final Item theItem, final int theQuantity) {
         item = theItem;
-        if(quantity >= 0) {
         quantity = theQuantity;
-        }
-        else {
-            quantity = 0;
-        }
+        
+ 
         
     }
 
