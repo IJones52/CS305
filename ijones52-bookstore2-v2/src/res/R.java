@@ -190,13 +190,13 @@ public class R {
         public static final String BF_FRAME_TITLE = "UW Bookstore Extended Application";
         
         /** Message on total Label. */
-        public static final String BF_LABEL_TOTAL = "order total:";
+        public static final String BF_LABEL_TOTAL = "Total:";
         
         /** Message on clear Button. */
         public static final String BF_BUTTON_CLEAR = "Clear";
         
         /** Message on membership check box. */
-        public static final String BF_CHECKBOX_MEMBER = "customer has store membership";
+        public static final String BF_CHECKBOX_MEMBER = "Membership";
         
         /** Message on Login Button during login. */
         public static final String LF_BUTTON_LOGIN = "Login";

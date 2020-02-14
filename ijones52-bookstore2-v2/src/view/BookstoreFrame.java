@@ -211,8 +211,15 @@ public final class BookstoreFrame extends JFrame {
         
         final JPanel p = new JPanel(new BorderLayout());
         p.add(makeCampusPanel(), BorderLayout.NORTH);
-        p.add(totalPanel, BorderLayout.CENTER);
-        
+        //Moved the member checkbox
+        final JCheckBox cb = new JCheckBox(R.Strings.BF_CHECKBOX_MEMBER);
+        cb.setForeground(R.Colors.HEADER_FOOTER_TEXT);
+        cb.setBackground(R.Colors.HEADER_FOOTER_BG);
+        cb.addActionListener(theEvent -> {
+            myItems.setMembership(cb.isSelected());
+            updateTotal();
+        });
+        p.add(cb, BorderLayout.CENTER);
         return p;
     }
 
@@ -255,7 +262,22 @@ public final class BookstoreFrame extends JFrame {
      * @return the checkbox panel
      */
     private JPanel makeCheckBoxPanel() {
+        //Total moved
+        myTotal.setEditable(false);
+        myTotal.setEnabled(false);
+        myTotal.setDisabledTextColor(R.Colors.CONTENT_TEXT);
+
+        // create the panel, and its label
+
+        final JPanel totalPanel = new JPanel();
+        totalPanel.setBackground(R.Colors.HEADER_FOOTER_BG);
+        final JLabel l = new JLabel(R.Strings.BF_LABEL_TOTAL);
+        l.setForeground(R.Colors.HEADER_FOOTER_TEXT);
+        totalPanel.add(l);
+        totalPanel.add(myTotal);
+        
         final JPanel p = new JPanel();
+        p.add(totalPanel, BorderLayout.WEST);
         p.setBackground(R.Colors.HEADER_FOOTER_BG);
         
         final JButton clearButton = new JButton(R.Strings.BF_BUTTON_CLEAR);
@@ -266,16 +288,10 @@ public final class BookstoreFrame extends JFrame {
             }
             updateTotal();
         });
-        p.add(clearButton);
         
-        final JCheckBox cb = new JCheckBox(R.Strings.BF_CHECKBOX_MEMBER);
-        cb.setForeground(R.Colors.HEADER_FOOTER_TEXT);
-        cb.setBackground(R.Colors.HEADER_FOOTER_BG);
-        cb.addActionListener(theEvent -> {
-            myItems.setMembership(cb.isSelected());
-            updateTotal();
-        });
-        p.add(cb);
+        
+        p.add(clearButton, BorderLayout.EAST);
+
         
         return p;
     }

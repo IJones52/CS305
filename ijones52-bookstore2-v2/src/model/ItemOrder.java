@@ -75,7 +75,7 @@ public final class ItemOrder implements Comparable {
     @Override 
     public boolean equals(Object other) {
         
-        if(other instanceof ItemOrder && ((ItemOrder)other).getItem() == item && ((ItemOrder)other).getQuantity() == quantity) {
+        if(other != null && other instanceof ItemOrder && ((ItemOrder)other).getItem().equals(item) && ((ItemOrder)other).getQuantity() == quantity) {
             return true;
         }
         return false;
