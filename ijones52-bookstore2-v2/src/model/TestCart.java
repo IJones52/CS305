@@ -52,15 +52,50 @@ class TestCart {
     }
     
     /**
-     * A method that tests the hashCode() method of the cart class.
+     * A method that tests the hashCode method of the cart class.
      * */
      @Test
-    void testToHashCode() {
+    void testHashCode() {
          //Testing the output is an integer
          assertTrue((Integer)cart1.hashCode() instanceof Integer);
          //Testing if the output is equal to Objects.hash
          assertEquals(Objects.hash(cart1.getMembershipStatus(),cart1.getOrders()), cart1.hashCode());
          
+     }
+     
+     /**
+      * A method that tests the equals method of the cart class.
+      * */
+     @Test
+     void testEquals() {
+         //Testing for same object
+         assertTrue(cart1.equals(cart1));
+         //Testing for not matching carts
+         assertFalse(cart1.equals(cart2));
+         cart2.add(order1);
+         assertFalse(cart1.equals(cart2));
+         //Testing for matching carts
+         cart2.clear();
+         cart2.add(order1);
+         assertTrue(cart1.equals(cart2));
+         //Testing null case
+         assertFalse(cart1.equals(null));
+         
+     }
+     
+     /**
+      * A method that tests the compareTo method of the cart class.
+      * */
+     @Test
+     void testCompareTo(){
+         //Testing the null case
+         assertEquals(0,cart1.compareTo(null));
+         //Testing the base carts
+         assertEquals(-1, cart1.compareTo(cart2));
+         //Testing for the same cart
+         assertEquals(0,cart1.compareTo(cart1));
+         //Testing for the last combination
+         assertEquals(1,cart2.compareTo(cart1));
      }
     
     
