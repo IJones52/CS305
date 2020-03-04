@@ -6,15 +6,26 @@ import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import filters.EdgeDetectFilter;
+import filters.EdgeHighlightFilter;
+import filters.FlipHorizontalFilter;
+import filters.FlipVerticalFilter;
+import filters.GrayscaleFilter;
+import filters.SharpenFilter;
+import filters.SoftenFilter;
 import image.PixelImage;
 
 /**
@@ -46,9 +57,16 @@ public class SnapShopGUI extends JFrame{
     private JButton close;
     
     /**
-     * Image field
+     * Image fields
      * */
     private JLabel img;
+    private PixelImage pixels;
+    
+    
+    /**
+     * The file chooser
+     * */
+    JFileChooser chooser = new JFileChooser();
     
     /**
      * Creates a new snapshop gui and sets up all of its components.
@@ -148,8 +166,13 @@ public class SnapShopGUI extends JFrame{
         
     }
     
+    /**
+     * A method that allows the user to select the image and then displays it in the middle panel
+     * @throws IOException
+     * */
     public void onFileOpen() {
-        JFileChooser chooser = new JFileChooser();
+        chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
         //Display the image
         int returnVal = chooser.showOpenDialog(SnapShopGUI.this);
         
@@ -158,7 +181,7 @@ public class SnapShopGUI extends JFrame{
             
             //Display image
             try {
-                PixelImage pixels = PixelImage.load(chooser.getSelectedFile());
+                pixels = PixelImage.load(chooser.getSelectedFile());
                 img = new JLabel();
                 img.setIcon(new ImageIcon(pixels));
                 mid = new JPanel();
@@ -174,7 +197,9 @@ public class SnapShopGUI extends JFrame{
                 pack();
             }
             catch(IOException e){
-                //No file popup
+                JOptionPane error = new JOptionPane("The selected file" + chooser.getSelectedFile().getName() + "is not an image file");
+                error.setVisible(true);
+                
             }
             
 
@@ -185,6 +210,11 @@ public class SnapShopGUI extends JFrame{
        
     }
     
+    
+    /**
+     * A method that changes the state of buttons when a file is closed
+     * Also clears the image, and resizes the GUI
+     * */
     public void onFileClose() {
         //disable the buttons
         disableAll();
@@ -193,6 +223,9 @@ public class SnapShopGUI extends JFrame{
         pack();
     }
     
+    /**
+     * A method that enables all buttons
+     * */
     public void enableAll() {
         edgeDetect.setEnabled(true);
         edgeHighlight.setEnabled(true);
@@ -205,6 +238,9 @@ public class SnapShopGUI extends JFrame{
         close.setEnabled(true);
     }
     
+    /**
+     * A method that disables all buttons except open
+     * */
     public void disableAll() {
         edgeDetect.setEnabled(false);
         edgeHighlight.setEnabled(false);
@@ -218,6 +254,11 @@ public class SnapShopGUI extends JFrame{
 
     }
     
+    /**
+     * A method that sets up action listeners for all buttons once they've been enabled
+     * Each action listener is implemented with a lambda expression all activating the associated filter
+     * @throws IOException on improper file writing
+     * */
     public void setupActions() {
         close.addActionListener(new ActionListener() {
 
@@ -227,5 +268,93 @@ public class SnapShopGUI extends JFrame{
             }
             
         });
+        
+        grayScale.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              new GrayscaleFilter().filter(pixels);
+              repaint();
+            }
+            
+        });
+        
+        edgeDetect.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EdgeDetectFilter().filter(pixels);
+                repaint();
+            }
+            
+        });
+        edgeHighlight.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EdgeHighlightFilter().filter(pixels);
+                repaint();
+            }
+            
+        });
+        flipHorizontal.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FlipHorizontalFilter().filter(pixels);
+                repaint();
+            }
+            
+        });
+        flipVertical.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FlipVerticalFilter().filter(pixels);
+                repaint();
+            }
+            
+        });
+        sharpen.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SharpenFilter().filter(pixels);
+                repaint();
+            }
+            
+        });
+        soften.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SoftenFilter().filter(pixels);
+                repaint();
+            }
+            
+        });
+        save.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooser.showSaveDialog(SnapShopGUI.this);
+                int userSelection = chooser.showSaveDialog(SnapShopGUI.this);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = chooser.getSelectedFile();
+                    try {
+                        pixels.save(fileToSave);
+                    }
+                    catch (IOException e1) {
+                        JOptionPane error = new JOptionPane("The selected file" + chooser.getSelectedFile().getName() + "cannot be written to");
+                        error.setVisible(true);
+                    }
+                }
+                else {
+                    
+                }
+            }
+            
+        });
+        
     }
 }
