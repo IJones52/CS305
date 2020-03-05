@@ -36,7 +36,7 @@ import image.PixelImage;
 public class SnapShopGUI extends JFrame{
     
     /**
-     * Panel fldies
+     * Panel fields
      * */
     private JPanel north;
     private JPanel south;
