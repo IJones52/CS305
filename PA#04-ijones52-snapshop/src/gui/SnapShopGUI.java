@@ -3,6 +3,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -18,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import filters.EdgeDetectFilter;
 import filters.EdgeHighlightFilter;
@@ -66,14 +70,16 @@ public class SnapShopGUI extends JFrame{
     /**
      * The file chooser
      * */
-    JFileChooser chooser = new JFileChooser();
+    private JFileChooser chooser = new JFileChooser();
     
     /**
      * Creates a new snapshop gui and sets up all of its components.
      * */
     public SnapShopGUI() {
+        chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+
         setSize(750,200);
-        setTitle("TCSS 305 - Assignment 4 ");
+        setTitle("TCSS 305 - Assignment 4 (ijones52)");
         setLayout(new BorderLayout());
         setupNorth();
         //setupCenter();
@@ -139,11 +145,16 @@ public class SnapShopGUI extends JFrame{
      * Sets up the southern panel and the file open action listener
      * */
     public void setupSouth() {
+        img = new JLabel();
+
         //Create the buttons
         south = new JPanel();
-        open = new JButton("Open..");
-        save = new JButton("Save as...");
+        open = new JButton("Open");
+        open.setIcon(new ImageIcon("/PA#04-ijones52-snapshop/icons/open.gif"));
+        save = new JButton("Save as");
+        save.setIcon(new ImageIcon("../icons/save.gif"));
         close = new JButton("Close Image");
+        close.setIcon(new ImageIcon("../icons/close.gif"));
         
         //disable the appropriate buttons
         save.setEnabled(false);
@@ -171,8 +182,7 @@ public class SnapShopGUI extends JFrame{
      * @throws IOException
      * */
     public void onFileOpen() {
-        chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        
         //Display the image
         int returnVal = chooser.showOpenDialog(SnapShopGUI.this);
         
@@ -181,13 +191,15 @@ public class SnapShopGUI extends JFrame{
             
             //Display image
             try {
+                chooser.setCurrentDirectory(new File(chooser.getSelectedFile().getParentFile().getAbsolutePath()));
                 pixels = PixelImage.load(chooser.getSelectedFile());
-                img = new JLabel();
+                
                 img.setIcon(new ImageIcon(pixels));
+                img.repaint();
                 mid = new JPanel();
                 mid.add(img);
                 add(mid, BorderLayout.CENTER);
-                
+
               //enable the buttons
                
                 enableAll();
@@ -197,15 +209,12 @@ public class SnapShopGUI extends JFrame{
                 pack();
             }
             catch(IOException e){
-                JOptionPane error = new JOptionPane("The selected file" + chooser.getSelectedFile().getName() + "is not an image file");
-                error.setVisible(true);
-                
+                JOptionPane.showMessageDialog(this, "The selected file" + chooser.getSelectedFile().getName() + " is not an image file", "File Error", JOptionPane.ERROR_MESSAGE);
             }
             
 
         }
         else {
-            //do nothing
         }
        
     }
@@ -343,10 +352,11 @@ public class SnapShopGUI extends JFrame{
                     File fileToSave = chooser.getSelectedFile();
                     try {
                         pixels.save(fileToSave);
+                        chooser.setCurrentDirectory(new File(chooser.getSelectedFile().getParentFile().getAbsolutePath()));
+
                     }
                     catch (IOException e1) {
-                        JOptionPane error = new JOptionPane("The selected file" + chooser.getSelectedFile().getName() + "cannot be written to");
-                        error.setVisible(true);
+                        JOptionPane.showMessageDialog(SnapShopGUI.this,"The selected file" + chooser.getSelectedFile().getName() + "cannot be written to", "Saving Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 else {
